@@ -20,6 +20,10 @@ module Workarea
       def total_pages
         headers["x-total-pages"]
       end
+
+      def error_details
+        body["errors"].to_s
+      end
     end
   end
 end

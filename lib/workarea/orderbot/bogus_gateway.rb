@@ -12,6 +12,14 @@ module Workarea
         Response.new(response(get_inventory_response))
       end
 
+      def create_order(attrs = {})
+        if attrs.first[:reference_order_id] == "error"
+          Response.new(response(create_error_order_response, 400))
+        else
+          Response.new(response(create_order_response))
+        end
+      end
+
       private
 
       def response(body, status = 200)
@@ -171,6 +179,28 @@ module Workarea
             updated_on: 5.minutes.ago
           }
         ]
+      end
+
+      def create_order_response
+        [
+          {
+            order_id: 1000,
+            reference_id: "1234",
+            orderbot_status_code: "success",
+            messages: "The ship confirmation was processed successfully."
+          }
+        ]
+      end
+
+      def create_error_order_response
+        {
+          errors: {
+              distributionCenterId: [ "The DistributionCenterId field is required." ]
+          },
+          title: "One or more validation errors occurred.",
+          status: 400,
+          traceId: "0HLRMSI1H2BKA:00000001"
+        }
       end
     end
   end

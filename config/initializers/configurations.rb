@@ -19,7 +19,7 @@ Workarea::Configuration.define_fields do
 
     field 'Inventory Distribution Center ID',
       type: :integer,
-      description: 'What inventory distribution center to import inventory from. Leaving this field blank will import inventory from all centers and is not recommended.',
+      description: 'What inventory distribution center to import inventory from. Leaving this field blank will import inventory from all centers and is not recommended. This field will also be used as the default distribution center on order export.',
       allow_blank: true
 
     field 'Default Inventory Import Policy',
@@ -46,5 +46,10 @@ Workarea::Configuration.define_fields do
       description: 'Set this value to match the timezone Orderbot sends any date-time information via the API. Consult with Orderbot before changing this value.',
       allow_blank: false,
       values: -> { ActiveSupport::TimeZone.all.map(&:name) }
+
+    field 'Shipping Date Lead Time',
+      type: :duration,
+      default: 3.days,
+      description: 'Lead time used to generate the "ship date" field when an order is placed. This time will added to the current date and sent to Orderbot when an order is placed.'
   end
 end
