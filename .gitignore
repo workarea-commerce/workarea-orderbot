@@ -19,3 +19,5 @@ node_modules
 yarn.lock
 yarn-error.log
 package-lock.json
+.rubocop-https-*
+.ruby-version

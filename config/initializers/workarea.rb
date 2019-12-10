@@ -3,11 +3,13 @@ Workarea.configure do |config|
   config.orderbot.api_timeout = 10
   config.orderbot.open_timeout = 10
 
-  # Time frame to look for updated inventory in the orderbot api.
-  config.orderbot.inventory_import_time_frame = 1.hour
 
-  # Time frame to look for updated products in orderbot.
-  # Products in orderbot older than this time frame will not
-  # be imported or udpated via the import process.
-  config.orderbot.product_import_time_frame = 1.day
+  config.orderbot.transaction_id = {
+    'ActiveMerchant::Billing::StripeGateway' => -> (transaction) { transaction.params['id'] },
+    'ActiveMerchant::Billing::BraintreeBlueGateway' => -> (transaction) { transaction.response.params["braintree_transaction"]["order_id"] },
+    'ActiveMerchant::Billing::MonerisGateway' => -> (transaction) { transaction.response.params["trans_id"] },
+    'ActiveMerchant::Billing::AuthorizeNetCimGateway' => -> (transaction) { transaction.response.params["direct_response"]["transaction_id"] },
+    'ActiveMerchant::Billing::CyberSourceGateway' => -> (transaction) { transaction.response.params["reasonCode"] },
+    'ActiveMerchant::Billing::CheckoutV2Gateway' => -> (transaction) { transaction.response.params["id"]   }
+  }
 end

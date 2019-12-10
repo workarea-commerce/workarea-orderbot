@@ -27,6 +27,15 @@ module Workarea
         Orderbot::Response.new(response)
       end
 
+      def create_order(attrs = {})
+        response = connection.post do |req|
+          req.url "orders"
+          req.body = attrs.to_json
+        end
+
+        Orderbot::Response.new(response)
+      end
+
       private
 
       def connection

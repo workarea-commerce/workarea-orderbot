@@ -1,0 +1,7 @@
+module Workarea
+  decorate User, with: :orderbot do
+    decorated do
+      field :orderbot_customer_id, type: String
+    end
+  end
+end

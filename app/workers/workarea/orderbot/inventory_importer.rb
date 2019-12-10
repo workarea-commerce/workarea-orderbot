@@ -16,7 +16,6 @@ module Workarea
           }
 
           inventory_response = gateway.get_inventory(inventory_filters)
-
           raise 'get inventory error' unless  inventory_response.success?
 
           inventory_records = inventory_response.body

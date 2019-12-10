@@ -1,0 +1,19 @@
+module Workarea
+  decorate Order, with: :orderbot do
+    decorated do
+      field :orderbot_order_id, type: String
+      field :orderbot_exported_at, type: Time
+    end
+
+    def orderbot_exported?
+      !!orderbot_exported_at
+    end
+
+    def set_orderbot_exported_data!(order_id)
+      update!(
+        orderbot_exported_at: Time.current,
+        orderbot_order_id: order_id
+      )
+    end
+  end
+end
