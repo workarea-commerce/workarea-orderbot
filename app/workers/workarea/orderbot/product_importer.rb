@@ -11,12 +11,11 @@ module Workarea
           last_import = options[:from_updated_on] || last_imported_at
 
           attrs = {
-            response_model: "catalog",
+            response_model: "integration",
             sort_by: "LastUpdatedOn"
           }.merge!(product_filters)
 
           response = gateway.get_products(attrs)
-
           write_products(response.body, last_import)
 
           if response.total_pages.to_i > 1
@@ -29,7 +28,6 @@ module Workarea
               count = count + 1
             end
           end
-
           # import the ob parent products - Top level workarea prodcuts
           Orderbot::Product::ImportParentProducts.new.perform
 
@@ -42,7 +40,7 @@ module Workarea
 
       def write_products(products, last_update_threshold)
         products.each do | product_data|
-          next if Time.parse(product_data["last_updated"]).iso8601 < last_update_threshold.in_time_zone(Workarea.config.orderbot_api_timezone).iso8601
+          next if Time.parse(product_data["updated_on"]).iso8601 < last_update_threshold.in_time_zone(Workarea.config.orderbot_api_timezone).iso8601
 
           parent_product = product_data["parent_id"] == 0
           parent_product_id = product_data["parent_id"]

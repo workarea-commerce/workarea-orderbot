@@ -12,7 +12,6 @@ module Workarea
           product = Workarea::Catalog::Product.first
           assert_equal("Blue Tooth USB", product.name)
           assert_equal("Test", product.description)
-          assert_equal(5462, product.filters[:category_id])
           assert_equal("Electronics", product.filters[:category])
           assert_equal(["BTUSB001"], product.fetch_detail(:upc))
 
@@ -34,7 +33,6 @@ module Workarea
             class_type: "Sales Items",
             group_id: 20693,
             group: "Accessories",
-            category_id: 5462,
             category: "Electronics",
             first_variable_value: nil,
             second_variable_value: nil,

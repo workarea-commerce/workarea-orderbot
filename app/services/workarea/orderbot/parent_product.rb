@@ -1,6 +1,8 @@
 module Workarea
   module Orderbot
     class ParentProduct
+      include Filters
+
       attr_reader :parent_product
 
       def initialize(parent_product)
@@ -33,18 +35,42 @@ module Workarea
       def build_product_filters
         existing_filters = product.filters || {}
         new_filters = {
-          category_id: product_details[:category_id],
           category: product_details[:category]
         }
 
-        existing_filters.merge(new_filters)
+        filters = existing_filters.merge(new_filters)
+        filters = add_filter_values(filters, first_variable) if first_variable.present?
+        filters = add_filter_values(filters, second_variable) if second_variable.present?
+
+        filters
       end
 
       def set_details
         new_details = {
           upc: product_details[:upc].presence
-        }
+        }.merge(get_product_details)
         product.update_details(new_details)
+      end
+
+      # getting custom attributes for a product requires a seperate API call
+      def get_product_details
+        attrs = {
+          response_model: "CustomField",
+          product_ids: product_details[:product_id]
+        }
+
+        response = gateway.get_products(attrs)
+
+        return {} unless response.success? && response.body.present?
+
+        response.body.first["custom_fields"].inject({}) do |memo, field|
+          memo[field["name"]] = field["value"]
+          memo
+        end
+      end
+
+      def gateway
+        Workarea::Orderbot.gateway
       end
     end
   end

@@ -25,6 +25,11 @@ module Workarea
           assert_equal(50.to_m, pricing.sell_price)
 
           assert_equal(16, shipping.weight) # 1lb converted to oz.
+
+          product.reload
+
+          assert_equal(["Red", "Pink"], product.filters["color"])
+          assert_equal(["cotton", "metal"], product.filters["material"])
         end
 
         def test_process_orderguide_price
@@ -73,8 +78,16 @@ module Workarea
             group: "Accessories",
             category_id: 5462,
             category: "Electronics",
-            first_variable_value: nil,
-            second_variable_value: nil,
+            first_variable: {
+              group: "color",
+              type: "Phone",
+              value: "Red"
+            },
+            second_variable: {
+              group: "material",
+              type: "material",
+              value: "cotton"
+            },
             descriptive_title: "",
             description: "Test",
             other_info: "",
@@ -104,8 +117,16 @@ module Workarea
             group: "Accessories",
             category_id: 5462,
             category: "Electronics",
-            first_variable_value: "blue",
-            second_variable_value: "metal",
+            first_variable: {
+              group: "color",
+              type: "Phone",
+              value: "Pink"
+            },
+            second_variable: {
+              group: "material",
+              type: "material",
+              value: "metal"
+            },
             descriptive_title: "",
             description: "Test",
             other_info: "",
@@ -135,8 +156,16 @@ module Workarea
             group: "Accessories",
             category_id: 5462,
             category: "Electronics",
-            first_variable_value: "blue",
-            second_variable_value: "metal",
+            first_variable: {
+              group: "color",
+              type: "Phone",
+              value: "Pink"
+            },
+            second_variable: {
+              group: "material",
+              type: "material",
+              value: "metal"
+            },
             descriptive_title: "",
             description: "Test",
             other_info: "",
@@ -166,8 +195,16 @@ module Workarea
             group: "Accessories",
             category_id: 5462,
             category: "Electronics",
-            first_variable_value: "blue",
-            second_variable_value: "metal",
+            first_variable: {
+              group: "color",
+              type: "Phone",
+              value: "Pink"
+            },
+            second_variable: {
+              group: "material",
+              type: "material",
+              value: "metal"
+            },
             descriptive_title: "",
             description: "Test",
             other_info: "",

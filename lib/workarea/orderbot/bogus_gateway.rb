@@ -5,7 +5,11 @@ module Workarea
       end
 
       def get_products(attrs = {})
-        Response.new(response(get_products_response))
+        if attrs[:response_model] == 'CustomField'
+          Response.new(response(get_products_custom_field_response))
+        else
+          Response.new(response(get_products_response))
+        end
       end
 
       def get_inventory(attrs = {})
@@ -31,119 +35,309 @@ module Workarea
         response.get("/orders/createorder")
       end
 
+      def get_products_custom_field_response
+        [
+          {
+          product_id: 123456,
+          custom_fields: [
+              {
+                  name: "Product Batch",
+                  value: "123"
+              },
+              {
+                  name: "Dye Type",
+                  value: "abc"
+              },
+              {
+                  name: "Grade",
+                  value: "F minus"
+              },
+              {
+                  name: "MFG Color",
+                  value: "baby boi blue"
+              }
+            ]
+          }
+        ]
+      end
+
+
       def get_products_response
         [
           {
-            product_id: 3647523,
-            name: "iPhone X",
-            sku: nil,
-            upc: "7475876093756837",
-            active: true,
-            taxable: true,
-            base_price: 0,
-            orderguide_price: nil,
-            units_of_measure: "Each",
-            weight: 1,
-            shipping_unit_of_measure: "Lbs",
-            has_children: true,
-            parent_id: 0,
-            class_type: "DR-Compoment",
-            group_id: 32930,
-            group: "Apple ",
-            category_id: 7717,
-            category: "Phones",
-            first_variable_value: nil,
-            second_variable_value: nil,
-            descriptive_title: nil,
-            description: "A refurbed IphoneX",
-            other_info: nil,
-            creation_date: nil,
-            last_updated: 5.minutes.ago,
-            updated_by: 205306
-          },
-          {
-            product_id: 3647524,
-            name: "iPhone X Rose",
-            sku: "applsku1",
-            upc: "7475876093756837",
-            active: true,
-            taxable: true,
-            base_price: 799,
-            orderguide_price: nil,
-            units_of_measure: "Each",
-            weight: 1,
-            shipping_unit_of_measure: "Lbs",
-            has_children: true,
-            parent_id: 3647523,
-            class_type: "DR-Compoment",
-            group_id: 32930,
-            group: "Apple ",
-            category_id: 7717,
-            category: "Phones",
-            first_variable_value: "rose",
-            second_variable_value: "metal",
-            descriptive_title: nil,
-            description: nil,
-            other_info: nil,
-            creation_date: nil,
-            last_updated: 5.minutes.ago,
-            updated_by: 205306
-          },
-          {
-            product_id: 3647525,
-            name: "iPhone X Black",
-            sku: "applsku2",
-            upc: "74758760945545",
-            active: true,
-            taxable: true,
-            base_price: 899,
-            orderguide_price: nil,
-            units_of_measure: "Each",
-            weight: 1,
-            shipping_unit_of_measure: "Lbs",
-            has_children: true,
-            parent_id: 3647523,
-            class_type: "DR-Compoment",
-            group_id: 32930,
-            group: "Apple ",
-            category_id: 7717,
-            category: "Phones",
-            first_variable_value: "black",
-            second_variable_value: "metal",
-            descriptive_title: nil,
-            description: nil,
-            other_info: nil,
-            creation_date: nil,
-            last_updated: 5.minutes.ago,
-            updated_by: 205306
-          },
-          {
-            product_id: 43355343243,
-            name: "Google Pixel 4",
-            sku: "googlepixel4",
-            upc: "74758760945545",
-            active: true,
-            taxable: true,
-            base_price: 899,
-            orderguide_price: nil,
-            units_of_measure: "Each",
-            weight: 1,
-            shipping_unit_of_measure: "Lbs",
+            category: "Electronics",
+            group: "Phone",
+            product_id: 3212905,
+            sku: "APP0008",
+            name: "iPhone 6M Pink Soft",
             has_children: false,
+            parent_id: 2548672,
+            parent_sku: "APP0001",
+            measurement_unit: "Each",
+            taxable: true,
+            gst_only: false,
+            first_variable: {
+                group: "Colour",
+                type: "Phone",
+                value: "Pink"
+                },
+            second_variable: {
+                group: "Texture",
+                type: "Density",
+                value: "Soft"
+                },
+            description: "",
+            other_important_info: "",
+            upc: "",
+            active: true,
+            reference_product: nil,
+            base_price: 600,
+            order_in_multiples: 1,
+            shipping_weight: 2,
+            shipping_weight_measurement_unit: "Oz",
+            apply_shipping_fee: true,
+            location: "",
+            maximum_commission_rate: 0,
+            export_hts: "",
+            country: nil,
+            descriptive_title: "",
+            csr_description: "",
+            meta_keywords: "",
+            workarea_info: {
+                template: "",
+                purchase_start_date: nil,
+                purchase_end_date: nil
+                },
+            shopify_info: {
+                published_scope: "none",
+                inventory_management: false
+                },
+            shipping_length: nil,
+            shipping_height: nil,
+            shipping_width: nil,
+            digital: false,
+            created_on: "2018-07-04T13:53:12.133",
+            updated_on: 1.day.ago
+          },
+          {
+            category: "Electronics",
+            group: "Phone",
+            product_id: 3212904,
+            sku: "APP0009",
+            name: "iPhone 6M Pink HD",
+            has_children: false,
+            parent_id: 2548672,
+            parent_sku: "APP0001",
+            measurement_unit: "Each",
+            taxable: true,
+            gst_only: false,
+            first_variable: {
+                group: "Colour",
+                type: "Phone",
+                value: "Pink"
+                },
+            second_variable: {
+                group: "Texture",
+                type: "Density",
+                value: "Hard"
+                },
+            description: "",
+            other_important_info: "",
+            upc: "",
+            active: true,
+            reference_product: nil,
+            base_price: 600,
+            order_in_multiples: 1,
+            shipping_weight: 2,
+            shipping_weight_measurement_unit: "Oz",
+            apply_shipping_fee: true,
+            location: "",
+            maximum_commission_rate: 0,
+            export_hts: "",
+            country: nil,
+            descriptive_title: "",
+            csr_description: "",
+            meta_keywords: "",
+            workarea_info: {
+                template: "",
+                purchase_start_date: nil,
+                purchase_end_date: nil
+                },
+            shopify_info: {
+                published_scope: "none",
+                inventory_management: false
+                },
+            shipping_length: nil,
+            shipping_height: nil,
+            shipping_width: nil,
+            digital: false,
+            created_on: "2018-07-04T13:53:11.803",
+            updated_on: 1.day.ago
+          },
+          {
+            category: "Electronics",
+            group: "Phone",
+            product_id: 2855051,
+            sku: "APP0011",
+            name: "iPhone 6M Blue Soft",
+            has_children: false,
+            parent_id: 2548672,
+            parent_sku: "APP0001",
+            measurement_unit: "Each",
+            taxable: true,
+            gst_only: false,
+            first_variable: {
+                group: "Colour",
+                type: "Phone",
+                value: "Blue"
+                },
+            second_variable: {
+                group: "Texture",
+                type: "Density",
+                value: "Soft"
+                },
+            description: "",
+            other_important_info: "",
+            upc: "",
+            active: true,
+            reference_product: nil,
+            base_price: 600,
+            order_in_multiples: 1,
+            shipping_weight: 2,
+            shipping_weight_measurement_unit: "Oz",
+            apply_shipping_fee: true,
+            location: "",
+            maximum_commission_rate: 0,
+            export_hts: "",
+            country: nil,
+            descriptive_title: "",
+            csr_description: "",
+            meta_keywords: "",
+            workarea_info: {
+                template: "",
+                purchase_start_date: nil,
+                purchase_end_date: nil
+                },
+            shopify_info: {
+                published_scope: "none",
+                inventory_management: false
+                },
+            shipping_length: nil,
+            shipping_height: nil,
+            shipping_width: nil,
+            digital: false,
+            created_on: "2017-08-03T16:44:52.04",
+            updated_on: 1.day.ago
+          },
+          {
+            category: "Electronics",
+            group: "Phone",
+            product_id: 2550254,
+            sku: "NK0001",
+            name: "Nokia 150",
+            has_children: true,
             parent_id: 0,
-            class_type: "DR-Compoment",
-            group_id: 32930,
-            group: "Google ",
-            category_id: 7717,
-            category: "Phones",
-            first_variable_value: "black",
-            second_variable_value: "metal",
-            descriptive_title: nil,
-            description: nil,
-            other_info: nil,
-            creation_date: nil,
-            last_updated: 5.minutes.ago,
-            updated_by: 205306
+            parent_sku: nil,
+            measurement_unit: "Each",
+            taxable: true,
+            gst_only: false,
+            first_variable: {
+                group: nil,
+                type: nil,
+                value: nil
+                },
+            second_variable: {
+                group: nil,
+                type: nil,
+                value: nil
+                },
+            description: "",
+            other_important_info: "",
+            upc: "NK001001",
+            active: true,
+            reference_product: nil,
+            base_price: 650,
+            order_in_multiples: 1,
+            shipping_weight: 1,
+            shipping_weight_measurement_unit: "Lbs",
+            apply_shipping_fee: true,
+            location: "",
+            maximum_commission_rate: 8,
+            export_hts: "",
+            country: nil,
+            descriptive_title: "",
+            csr_description: "",
+            meta_keywords: "",
+            workarea_info: {
+                template: "",
+                purchase_start_date: nil,
+                purchase_end_date: nil
+                },
+            shopify_info: {
+                published_scope: "none",
+                inventory_management: nil
+                },
+            shipping_length: nil,
+            shipping_height: nil,
+            shipping_width: nil,
+            digital: false,
+            created_on: "2016-12-23T10:36:16.637",
+            updated_on: 1.day.ago
+          },
+          {
+            category: "Electronics",
+            group: "Phone",
+            product_id: 2548672,
+            sku: "APP0001",
+            name: "iPhone 6M",
+            has_children: true,
+            parent_id: 0,
+            parent_sku: nil,
+            measurement_unit: "Each",
+            taxable: true,
+            gst_only: false,
+            first_variable: {
+                group: nil,
+                type: nil,
+                value: nil
+                },
+            second_variable: {
+                group: nil,
+                type: nil,
+                value: nil
+                },
+            description: "",
+            other_important_info: "",
+            upc: "APP001001",
+            active: true,
+            reference_product: nil,
+            base_price: 600,
+            order_in_multiples: 1,
+            shipping_weight: 2,
+            shipping_weight_measurement_unit: "Oz",
+            apply_shipping_fee: true,
+            location: "",
+            maximum_commission_rate: nil,
+            export_hts: "",
+            country: nil,
+            descriptive_title: "",
+            csr_description: "",
+            meta_keywords: "",
+            workarea_info: {
+                template: "",
+                purchase_start_date: nil,
+                purchase_end_date: nil
+                },
+            shopify_info: {
+                published_scope: "none",
+                inventory_management: nil
+                },
+            shipping_length: nil,
+            shipping_height: nil,
+            shipping_width: nil,
+            digital: false,
+            created_on: "2016-12-21T15:13:30.213",
+            updated_on: 1.day.ago
           }
         ]
       end
