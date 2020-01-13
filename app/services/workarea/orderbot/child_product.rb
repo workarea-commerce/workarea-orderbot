@@ -1,6 +1,8 @@
 module Workarea
   module Orderbot
     class ChildProduct
+      include Filters
+
       class ChildProductImportError < StandardError; end
       class NoParentProductImportError < StandardError; end
       attr_reader :child_product
@@ -16,6 +18,7 @@ module Workarea
         save_variant
         save_price
         save_shipping_sku
+        set_product_filters
       end
 
       private
@@ -41,12 +44,9 @@ module Workarea
       end
 
       def set_variant_details
-        #TODO - work with OB to get the key names to use here.
-        new_details = {
-          detail_1: product_details[:first_variable_value],
-          detail_2: product_details[:second_variable_value]
-        }
-
+        new_details = {}
+        new_details.merge!(first_variable) if first_variable.present?
+        new_details.merge!(second_variable) if second_variable.present?
         variant.update_details(new_details)
       end
 
@@ -79,6 +79,21 @@ module Workarea
         return product_details[:weight] if product_details[:shipping_unit_of_measure] == "Oz"
         return (product_details[:weight] * 16.00).round(2) if product_details[:shipping_unit_of_measure] == "Lbs"
         return (product_details[:weight] * 1000.00).round(2) if product_details[:shipping_unit_of_measure] == "Kgs"
+      end
+
+      def set_product_filters
+        existing_filters = product.filters || {}
+
+        new_filters = {
+          category: product_details[:category]
+        }.compact
+
+        filters = existing_filters.merge(new_filters)
+        filters = add_filter_values(filters, first_variable) if first_variable.present?
+        filters = add_filter_values(filters, second_variable) if second_variable.present?
+
+        product.filters = filters
+        product.save!
       end
     end
   end
