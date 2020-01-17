@@ -12,3 +12,11 @@ Sidekiq::Cron::Job.create(
   cron: '0 * * * *',
   queue: 'low'
 )
+
+
+Sidekiq::Cron::Job.create(
+  name: 'Workarea::Orderbot::PricingImporter',
+  klass: 'Workarea::Orderbot::PricingImporter',
+  cron: '30 * * * *',
+  queue: 'low'
+)
