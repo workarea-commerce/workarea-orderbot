@@ -27,6 +27,15 @@ module Workarea
         Orderbot::Response.new(response)
       end
 
+      def get_pricing(attrs = {})
+        response = connection.get do |req|
+          req.options.params_encoder = Faraday::FlatParamsEncoder
+          req.url "pricing"
+          req.params = attrs
+        end
+        Orderbot::Response.new(response)
+      end
+
       def create_order(attrs = {})
         response = connection.post do |req|
           req.url "orders"

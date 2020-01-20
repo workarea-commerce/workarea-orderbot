@@ -16,6 +16,10 @@ module Workarea
         Response.new(response(get_inventory_response))
       end
 
+      def get_pricing(attrs = {})
+        Response.new(response(get_pricing_response))
+      end
+
       def create_order(attrs = {})
         if attrs.first[:reference_order_id] == "error"
           Response.new(response(create_error_order_response, 400))
@@ -395,6 +399,89 @@ module Workarea
           status: 400,
           traceId: "0HLRMSI1H2BKA:00000001"
         }
+      end
+
+      def get_pricing_response
+        [
+          {
+            effective_date: nil,
+            name: "CAN-REWARDS",
+            order_guide_id: 1,
+            sales_channel_id: 286,
+            version_id: 3187,
+            products: [
+              {
+                force_schedule: nil,
+                last_updated_on: 5.minutes.ago,
+                original_price: 15.0,
+                price: 15.0,
+                product_id: 3592532,
+                sales_end_on: nil,
+                sales_start_on: nil,
+                sku: "SAMEPRICE1"
+              },
+              {
+                force_schedule: nil,
+                last_updated_on: 5.minutes.ago,
+                original_price: nil,
+                price: 20.0,
+                product_id: 3592539,
+                sales_end_on: nil,
+                sales_start_on: nil,
+                sku: "REGULAR1"
+              },
+              {
+                force_schedule: nil,
+                last_updated_on: 5.minutes.ago,
+                original_price: 45.0,
+                price: 30.0,
+                product_id: 3592535,
+                sales_end_on: nil,
+                sales_start_on: nil,
+                sku: "SALE1"
+              }
+            ]
+          },
+          {
+            effective_date: nil,
+            name: "UK-Shopify",
+            order_guide_id: 2,
+            sales_channel_id: 286,
+            version_id: 3177,
+            products: [
+              {
+                force_schedule: nil,
+                last_updated_on: 5.minutes.ago,
+                original_price: nil,
+                price: 570.0,
+                product_id: 2548678,
+                sales_end_on: nil,
+                sales_start_on: nil,
+                sku: "APP0006"
+              },
+              {
+                force_schedule: nil,
+                last_updated_on: 5.minutes.ago,
+                original_price: nil,
+                price: 570.0,
+                product_id: 2855050,
+                sales_end_on: nil,
+                sales_start_on: nil,
+                sku: "APP0010"
+              },
+              {
+                force_schedule: nil,
+                last_updated_on: 5.minutes.ago,
+                original_price: nil,
+                price: 237.5,
+                product_id: 3081908,
+                sales_end_on: nil,
+                sales_start_on: nil,
+                sku: "AMP0101"
+              }
+            ]
+          }
+        ]
       end
     end
   end
