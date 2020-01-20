@@ -5,6 +5,7 @@ Workarea.configure do |config|
 
 
   config.orderbot.transaction_id = {
+    'ActiveMerchant::Billing::BogusGateway' => -> (transaction) { transaction.response.authorization },
     'ActiveMerchant::Billing::StripeGateway' => -> (transaction) { transaction.params['id'] },
     'ActiveMerchant::Billing::BraintreeBlueGateway' => -> (transaction) { transaction.response.params["braintree_transaction"]["order_id"] },
     'ActiveMerchant::Billing::MonerisGateway' => -> (transaction) { transaction.response.params["trans_id"] },

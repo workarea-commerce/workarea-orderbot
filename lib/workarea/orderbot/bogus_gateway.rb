@@ -28,6 +28,10 @@ module Workarea
         end
       end
 
+      def get_fulfillments(attrs = {})
+        Response.new(response(get_fulfillments_response))
+      end
+
       private
 
       def response(body, status = 200)
@@ -478,6 +482,55 @@ module Workarea
                 sales_end_on: nil,
                 sales_start_on: nil,
                 sku: "AMP0101"
+              }
+            ]
+          }
+        ]
+      end
+
+      def get_fulfillments_response
+        [
+          {
+            order_id: "111111111",
+            reference_id: "1234",
+            purchase_order: "00984",
+            ship_date: 5.minutes.ago,
+            carrier_service_type: "USPS Priority",
+            ship_code: "FED",
+            packages: [
+              {
+                package_id: "3003216",
+                tracking_number: "1Z999AA10123456784",
+                items: [
+                  {
+                    package_item_id: "3003216",
+                    product_id: "3003217",
+                    sku: "SKU",
+                    quantity: "2"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            order_id: "99999999",
+            reference_id: "4567",
+            purchase_order: "00984",
+            ship_date: 5.minutes.ago,
+            carrier_service_type: "USPS Priority",
+            ship_code: "FED",
+            packages: [
+              {
+                package_id: "3003216",
+                tracking_number: "1Z999AA10123456784",
+                items: [
+                  {
+                    package_item_id: "3003216",
+                    product_id: "3003217",
+                    sku: "SKU",
+                    quantity: "1"
+                  }
+                ]
               }
             ]
           }

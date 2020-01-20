@@ -11,6 +11,8 @@ module Workarea
       )
 
       def perform(id)
+        return unless Orderbot.api_configured?
+
         order = Workarea::Order.find(id)
         orderbot_order = Workarea::Orderbot::Order.new(order.id)
         response = Workarea::Orderbot.gateway.create_order(orderbot_order.to_a)
