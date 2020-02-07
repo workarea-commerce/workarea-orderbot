@@ -75,7 +75,7 @@ module Workarea
         credit_card = payments.detect { |p| p[:payment_type] == "credit_card" }
         assert_equal("visa", credit_card[:payment_method_type])
 
-        store_credit = payments.detect { |p| p[:payment_type] == "unknown" }
+        store_credit = payments.detect { |p| p[:payment_type] == "cheque" }
         assert_equal("paid_from_web", store_credit[:payment_method_type])
       end
 
