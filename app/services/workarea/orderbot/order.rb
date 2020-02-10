@@ -40,6 +40,10 @@ module Workarea
           case tender.slug
           when :credit_card
             Order::Tender::CreditCard.new(tender).to_h
+          when :store_credit
+            Order::Tender::StoreCredit.new(tender).to_h
+          when :gift_card
+            Order::Tender::GiftCard.new(tender).to_h
           else
             Order::Tender::General.new(tender).to_h
           end
