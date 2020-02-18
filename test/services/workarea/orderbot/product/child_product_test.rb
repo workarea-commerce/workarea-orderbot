@@ -25,11 +25,13 @@ module Workarea
           assert_equal(50.to_m, pricing.sell_price)
 
           assert_equal(16, shipping.weight) # 1lb converted to oz.
-
+          assert_equal([1, 2, 3], shipping.dimensions)
           product.reload
 
           assert_equal(["Red", "Pink"], product.filters["color"])
           assert_equal(["cotton", "metal"], product.filters["material"])
+          assert_equal("Electronics", product.filters[:orderbot_category])
+          assert_equal("Accessories", product.filters[:orderbot_group])
         end
 
         def test_process_orderguide_price
@@ -69,8 +71,8 @@ module Workarea
             base_price: 1,
             orderguide_price: nil,
             units_of_measure: "Each",
-            weight: 1,
-            shipping_unit_of_measure: "Lbs",
+            shipping_weight: 1,
+            shipping_weight_measurement_unit: "Lbs",
             has_children: true,
             parent_id: 0,
             class_type: "Sales Items",
@@ -79,8 +81,8 @@ module Workarea
             category_id: 5462,
             category: "Electronics",
             first_variable: {
-              group: "color",
-              type: "Phone",
+              group: "phone color",
+              type: "color",
               value: "Red"
             },
             second_variable: {
@@ -93,7 +95,15 @@ module Workarea
             other_info: "",
             creation_date: nil,
             last_updated: "2019-04-02T13:10:03.29",
-            updated_by: 282517
+            updated_by: 282517,
+            shipping_height: 1,
+            shipping_width: 2,
+            shipping_length: 3,
+            workarea_info: {
+              template: "",
+              purchase_start_date: nil,
+              purchase_end_date: nil
+            }
           }
 
           @parent_product = Orderbot::ProductImportData.create!(product_data: product_attrs)
@@ -108,8 +118,8 @@ module Workarea
             base_price: 50,
             orderguide_price: nil,
             units_of_measure: "Each",
-            weight: 1,
-            shipping_unit_of_measure: "Lbs",
+            shipping_weight: 1,
+            shipping_weight_measurement_unit: "Lbs",
             has_children: true,
             parent_id: 3166006,
             class_type: "Sales Items",
@@ -118,8 +128,8 @@ module Workarea
             category_id: 5462,
             category: "Electronics",
             first_variable: {
-              group: "color",
-              type: "Phone",
+              group: "phone colors",
+              type: "color",
               value: "Pink"
             },
             second_variable: {
@@ -132,7 +142,15 @@ module Workarea
             other_info: "",
             creation_date: nil,
             last_updated: "2019-04-02T13:10:03.29",
-            updated_by: 282517
+            updated_by: 282517,
+            shipping_height: 1,
+            shipping_width: 2,
+            shipping_length: 3,
+            workarea_info: {
+              template: "",
+              purchase_start_date: nil,
+              purchase_end_date: nil
+            }
           }
 
           @child_product = Orderbot::ProductImportData.create!(parent_product_id: 3166006, product_data: child_product_attrs)
@@ -147,8 +165,8 @@ module Workarea
             base_price: 50,
             orderguide_price: 40,
             units_of_measure: "Each",
-            weight: 1,
-            shipping_unit_of_measure: "Lbs",
+            shipping_weight: 1,
+            shipping_weight_measurement_unit: "Lbs",
             has_children: true,
             parent_id: 3166006,
             class_type: "Sales Items",
@@ -157,8 +175,8 @@ module Workarea
             category_id: 5462,
             category: "Electronics",
             first_variable: {
-              group: "color",
-              type: "Phone",
+              group: "phone colors",
+              type: "color",
               value: "Pink"
             },
             second_variable: {
@@ -171,7 +189,15 @@ module Workarea
             other_info: "",
             creation_date: nil,
             last_updated: "2019-04-02T13:10:03.29",
-            updated_by: 282517
+            updated_by: 282517,
+            shipping_height: 1,
+            shipping_width: 2,
+            shipping_length: 3,
+            workarea_info: {
+              template: "",
+              purchase_start_date: nil,
+              purchase_end_date: nil
+            }
           }
 
           @order_guide_price_product = Orderbot::ProductImportData.create!(parent_product_id: 3166006, product_data: order_guide_product_attrs)
@@ -186,8 +212,8 @@ module Workarea
             base_price: 50,
             orderguide_price: nil,
             units_of_measure: "Each",
-            weight: 1,
-            shipping_unit_of_measure: "Lbs",
+            shipping_weight: 1,
+            shipping_weight_measurement_unit: "Lbs",
             has_children: true,
             parent_id: 3166006,
             class_type: "Sales Items",
@@ -196,8 +222,8 @@ module Workarea
             category_id: 5462,
             category: "Electronics",
             first_variable: {
-              group: "color",
-              type: "Phone",
+              group: "Phone Colors",
+              type: "color",
               value: "Pink"
             },
             second_variable: {
@@ -210,7 +236,15 @@ module Workarea
             other_info: "",
             creation_date: nil,
             last_updated: "2019-04-02T13:10:03.29",
-            updated_by: 282517
+            updated_by: 282517,
+            shipping_height: 1,
+            shipping_width: 2,
+            shipping_length: 3,
+            workarea_info: {
+              template: "",
+              purchase_start_date: nil,
+              purchase_end_date: nil
+            }
           }
 
           @no_sku_child_product = Orderbot::ProductImportData.create!(parent_product_id: 3166006, product_data: no_sku_child_product_attrs)

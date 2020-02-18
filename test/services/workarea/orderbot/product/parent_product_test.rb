@@ -12,8 +12,10 @@ module Workarea
           product = Workarea::Catalog::Product.first
           assert_equal("Blue Tooth USB", product.name)
           assert_equal("Test", product.description)
-          assert_equal("Electronics", product.filters[:category])
+          assert_equal("Electronics", product.filters[:orderbot_category])
+          assert_equal("Accessories", product.filters[:orderbot_group])
           assert_equal(["BTUSB001"], product.fetch_detail(:upc))
+          assert_equal("generic", product.template)
 
           parent_product.update_attributes!(
             product_data: {
@@ -41,14 +43,22 @@ module Workarea
             other_info: "",
             creation_date: nil,
             last_updated: "2019-04-02T13:10:03.29",
-            updated_by: 282517
+            updated_by: 282517,
+            workarea_info: {
+              template: "ob_test",
+              purchase_start_date: nil,
+              purchase_end_date: nil
+              }
             }
           )
+
+          Workarea.config.product_templates = [:ob_test]
 
           Orderbot::ParentProduct.new(parent_product).process
           product.reload
           assert_equal(1, Workarea::Catalog::Product.count)
           assert_equal("NEW DESCRIPTION", product.description)
+          assert_equal("ob_test", product.template)
         end
 
         private
@@ -80,7 +90,12 @@ module Workarea
             other_info: "",
             creation_date: nil,
             last_updated: "2019-04-02T13:10:03.29",
-            updated_by: 282517
+            updated_by: 282517,
+            workarea_info: {
+              template: "",
+              purchase_start_date: nil,
+              purchase_end_date: nil
+            }
           }
 
           Orderbot::ProductImportData.create!(product_data: product_attrs)
