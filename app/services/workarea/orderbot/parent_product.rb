@@ -12,8 +12,10 @@ module Workarea
       def process
         product.name = product_details[:name]
         product.description = product_details[:description]
+        product.active = product_details[:active]
 
         product.filters = build_product_filters
+        product.template = product_template
         set_details
         product.save!
       end
@@ -35,7 +37,8 @@ module Workarea
       def build_product_filters
         existing_filters = product.filters || {}
         new_filters = {
-          category: product_details[:category]
+          orderbot_category: product_details[:category],
+          orderbot_group: product_details[:group]
         }
 
         filters = existing_filters.merge(new_filters)
@@ -67,6 +70,13 @@ module Workarea
           memo[field["name"]] = field["value"]
           memo
         end
+      end
+
+      def product_template
+        template = product_details[:workarea_info][:template]
+        return "generic" unless template.present?
+        return "generic" unless Workarea.config.product_templates.include?(template.to_sym)
+        template
       end
 
       def gateway

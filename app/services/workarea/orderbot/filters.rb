@@ -16,16 +16,16 @@ module Workarea
       end
 
       def first_variable
-        return {} unless product_details[:first_variable].present? && product_details[:first_variable][:group].present?
+        return {} unless product_details[:first_variable].present? && product_details[:first_variable][:type].present?
         {
-         product_details[:first_variable][:group] => product_details[:first_variable][:value]
+         product_details[:first_variable][:type] => product_details[:first_variable][:value]
         }.compact
       end
 
       def second_variable
-        return {} unless product_details[:second_variable].present? && product_details[:second_variable][:group].present?
+        return {} unless product_details[:second_variable].present? && product_details[:second_variable][:type].present?
         {
-         product_details[:second_variable][:group] => product_details[:second_variable][:value]
+         product_details[:second_variable][:type] => product_details[:second_variable][:value]
         }.compact
       end
     end
