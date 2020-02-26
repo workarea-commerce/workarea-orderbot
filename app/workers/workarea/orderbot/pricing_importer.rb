@@ -12,6 +12,7 @@ module Workarea
 
           pricing_filters = {
             response_model:  "OrderGuideProduct",
+            active: true
           }
 
           pricing_response = gateway.get_pricing(pricing_filters)
