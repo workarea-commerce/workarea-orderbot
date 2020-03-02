@@ -38,7 +38,7 @@ module Workarea
 
           fields = response.body.first["custom_fields"]
 
-          backorder_field = fields.detect{ |f| f["name"] == "backorderable"}
+          backorder_field = fields.detect { |f| f["name"] == "backorderable" }
 
           return unless backorder_field.present?
 
