@@ -28,11 +28,15 @@ module Workarea
       api_user_name.present? && api_password.present?
     end
 
+    def self.test?
+      Workarea.config.use_orderbot_staging_environment
+    end
+
     def self.gateway
       if Rails.env.test?
         Orderbot::BogusGateway.new
       else
-        Orderbot::Gateway.new(api_user_name: api_user_name, api_password: api_password)
+        Orderbot::Gateway.new(api_user_name: api_user_name, api_password: api_password, test: test?)
       end
     end
   end

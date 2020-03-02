@@ -28,6 +28,22 @@ module Workarea
         assert_equal(1, Workarea::Inventory::Sku.count)
         assert_equal(500, sku.available)
       end
+
+      def test_backordered_inventory
+        inventory_data = {
+          distribution_center_id: 454,
+          product_id: 2742840,
+          sku: "backordersku",
+          quantity_on_hand: 400.0,
+          updated_on: 5.minutes.ago
+        }
+
+        Workarea::Orderbot::Inventory::ImportInventory.new.perform(inventory_data)
+        sku = Workarea::Inventory::Sku.first
+
+        assert_equal(400, sku.available)
+        assert_equal("allow_backorder", sku.policy)
+      end
     end
   end
 end

@@ -5,7 +5,9 @@ module Workarea
       end
 
       def get_products(attrs = {})
-        if attrs[:response_model] == 'CustomField'
+        if attrs[:response_model] == 'CustomField' && attrs[:sku] == 'backordersku'
+          Response.new(response(get_backordered_products_custom_field_response))
+        elsif attrs[:response_model] == 'CustomField'
           Response.new(response(get_products_custom_field_response))
         else
           Response.new(response(get_products_response))
@@ -63,12 +65,29 @@ module Workarea
               {
                   name: "MFG Color",
                   value: "baby boi blue"
+              },
+              {
+                  name: "backorderable",
+                  value: false
               }
             ]
           }
         ]
       end
 
+      def get_backordered_products_custom_field_response
+        [
+          {
+          product_id: 123456,
+          custom_fields: [
+              {
+                  name: "backorderable",
+                  value: true
+              }
+            ]
+          }
+        ]
+      end
 
       def get_products_response
         [

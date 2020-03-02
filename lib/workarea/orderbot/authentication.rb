@@ -29,8 +29,12 @@ module Workarea
         options[:api_password]
       end
 
+      def test
+        options[:test]
+      end
+
       def token_cache_key
-        Digest::MD5.hexdigest "#{api_user_name}#{api_password}"
+        Digest::MD5.hexdigest "#{api_user_name}#{api_password}#{test}"
       end
     end
   end
