@@ -1,7 +1,7 @@
 Workarea.configure do |config|
   config.orderbot = ActiveSupport::Configurable::Configuration.new
-  config.orderbot.api_timeout = 15
-  config.orderbot.open_timeout = 15
+  config.orderbot.api_timeout = 10
+  config.orderbot.open_timeout = 10
 
 
   config.orderbot.transaction_id = {
