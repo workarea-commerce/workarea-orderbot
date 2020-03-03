@@ -12,6 +12,11 @@ Workarea::Configuration.define_fields do
       allow_blank: false,
       encrypted: true
 
+    field 'Use Orderbot Staging Environment',
+      type: :boolean,
+      description: 'Use the Orderbot staging environment. Only recommended for experimenting with new and custom Orderbot features, talk to your Orderbot support representative for access.',
+      default: false
+
     field 'Default Order Guide ID',
       type: :integer,
       description: 'What order guide ID is used to filter products on import. This value will also be sent when an order is exported to Orderbot.',

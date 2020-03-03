@@ -74,7 +74,15 @@ module Workarea
 
 
       def rest_endpoint
-        "https://api-beta.orderbot.com"
+        if test?
+          "https://staging-api-core.devbot.ca"
+        else
+          "https://api-beta.orderbot.com"
+        end
+      end
+
+      def test?
+        (options.has_key?(:test) ? options[:test] : false)
       end
 
       def requires!(hash, *params)
