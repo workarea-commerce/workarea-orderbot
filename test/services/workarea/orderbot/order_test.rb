@@ -23,6 +23,9 @@ module Workarea
         assert_equal(1.0, orderbot_order[:order_discount])
         assert_equal(order.total_price.to_f, orderbot_order[:order_total])
 
+        order_taxes = orderbot_order[:taxes].first
+        assert_equal(order.tax_total, order_taxes[:amount])
+
         shipping_info = orderbot_order[:shipping_info]
         assert_equal(1.0, shipping_info[:shipping_total])
 

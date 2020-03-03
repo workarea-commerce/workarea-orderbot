@@ -28,7 +28,8 @@ module Workarea
             ship_to: shipping_address,
             billing_to: billing_address,
             order_items: items,
-            payments: payments
+            payments: payments,
+            taxes: taxes
           }
         ]
       end
@@ -130,6 +131,15 @@ module Workarea
       def reference_customer_id
         return if user.present? && user.orderbot_customer_id.present?
         order.email
+      end
+
+      def taxes
+        [
+          {
+            tax_name: "tax",
+            amount: order.tax_total.to_f
+          }
+        ]
       end
     end
   end
