@@ -18,9 +18,20 @@ module Workarea
         response = Workarea::Orderbot.gateway.create_order(orderbot_order.to_a)
 
         raise OrderbotSaveOrderError, response.error_details unless response.success?
+        raise OrderbotSaveOrderError, messages(response.body) unless created?(response.body) # checks for a 200 response that fails to create the order
 
         orderbot_order_id = response.body.first["order_id"]
         order.set_orderbot_exported_data!(orderbot_order_id)
+      end
+
+      private
+
+      def created?(body)
+        body.first["orderbot_status_code"] == "success"
+      end
+
+      def messages(body)
+        body.first["messages"].join(",")
       end
     end
   end
