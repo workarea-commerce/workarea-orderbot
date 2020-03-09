@@ -25,6 +25,8 @@ module Workarea
       def create_order(attrs = {})
         if attrs.first[:reference_order_id] == "error"
           Response.new(response(create_error_order_response, 400))
+        elsif attrs.first[:reference_order_id] == "failure"
+          Response.new(response(create_order_save_failure_response, 200))
         else
           Response.new(response(create_order_response))
         end
@@ -408,7 +410,7 @@ module Workarea
             order_id: 1000,
             reference_id: "1234",
             orderbot_status_code: "success",
-            messages: "The ship confirmation was processed successfully."
+            messages: [ "The ship confirmation was processed successfully" ]
           }
         ]
       end
@@ -423,6 +425,18 @@ module Workarea
           traceId: "0HLRMSI1H2BKA:00000001"
         }
       end
+
+      def create_order_save_failure_response
+       [
+          {
+            order_id: 0,
+            reference_id: "1234",
+            orderbot_status_code: "failure",
+            messages: [ "order failed to save" ]
+          }
+        ]
+      end
+
 
       def get_pricing_response
         [

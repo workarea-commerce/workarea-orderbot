@@ -26,5 +26,16 @@ module Workarea
         Workarea::Orderbot::SaveOrder.new.perform(order.id)
       end
     end
+
+     def test_export_fails_to_create
+      Workarea.config.orderbot_api_email_address = "test@workarea.com"
+      Workarea.config.orderbot_api_password = "foobar"
+
+      order = create_placed_order(id: "failure")
+
+      assert_raise Workarea::Orderbot::SaveOrder::OrderbotSaveOrderError do
+        Workarea::Orderbot::SaveOrder.new.perform(order.id)
+      end
+    end
   end
 end

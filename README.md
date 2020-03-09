@@ -42,6 +42,15 @@ Useful information is stored in ```Workarea::Orderbot::ImportLog``` with data ab
 
 Orders placed in Workarea are queued in Sidekiq and are not sent in a batch.
 
+Product Import Notes
+--------------------------------------------------------------------------------
+
+The product import task saves import data into a collection defined at ```Workarea::Orderbot::ProductImportData```. This collection is then iterated over and creates products and their associated variants. Products not imported at the end of the process will remain in the collection. Relevant error data is stored in the ```error_message``` on the class. Check this field if a record is stuck in the import process.
+
+The product import task will attempt to save the product details from Orderbot by making a call to the custom fields endpoint. These custom field names can not have the "." or "$" characters because of the way they are stored in the Workarea product details hash. If details from Orderbot are not importing a good place to start debugging is checking for those characters in the Orderbot custom fields admin.
+
+The Orderbot fields "Group" and "Category" will be imported as product filters which can be used for category creation in the Workarea admin.
+
 Configuration
 --------------------------------------------------------------------------------
 
