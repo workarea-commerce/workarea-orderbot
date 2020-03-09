@@ -45,8 +45,10 @@ module Workarea
           parent_product = product_data["parent_id"] == 0
           parent_product_id = product_data["parent_id"]
           has_children = product_data["has_children"]
+          product_id = product_data["product_id"]
 
-          Orderbot::ProductImportData.create!(
+          ob_record = Orderbot::ProductImportData.find_or_create_by(product_id: product_id)
+          ob_record.update_attributes!(
             product_data: product_data,
             parent_product: parent_product,
             parent_product_id: parent_product_id,
