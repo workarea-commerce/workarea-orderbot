@@ -367,6 +367,61 @@ module Workarea
             digital: false,
             created_on: "2016-12-21T15:13:30.213",
             updated_on: 1.day.ago
+          },
+          {
+            category: "Electronics",
+            group: "Phone",
+            product_id: 3212905,
+            sku: "APP0008",
+            name: "iPhone 6M Pink Soft",
+            has_children: false,
+            parent_id: 2548672,
+            parent_sku: "APP0001",
+            measurement_unit: "Each",
+            taxable: true,
+            gst_only: false,
+            first_variable: {
+                group: "Colour",
+                type: "Phone",
+                value: "Pink"
+                },
+            second_variable: {
+                group: "Texture",
+                type: "Density",
+                value: "Soft"
+                },
+            description: "",
+            other_important_info: "",
+            upc: "",
+            active: true,
+            reference_product: nil,
+            base_price: 600,
+            order_in_multiples: 1,
+            shipping_weight: 2,
+            shipping_weight_measurement_unit: "Oz",
+            apply_shipping_fee: true,
+            location: "",
+            maximum_commission_rate: 0,
+            export_hts: "",
+            country: nil,
+            descriptive_title: "",
+            csr_description: "",
+            meta_keywords: "",
+            workarea_info: {
+                template: "",
+                purchase_start_date: nil,
+                purchase_end_date: nil
+                },
+            shopify_info: {
+                published_scope: "none",
+                inventory_management: false
+                },
+            shipping_length: nil,
+            shipping_height: nil,
+            shipping_width: nil,
+            digital: false,
+            created_on: "2018-07-04T13:53:12.133",
+            updated_on: 1.day.ago
           }
         ]
       end

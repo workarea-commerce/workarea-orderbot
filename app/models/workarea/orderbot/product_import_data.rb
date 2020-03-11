@@ -3,6 +3,7 @@ module Workarea
     class ProductImportData
       include ApplicationDocument
 
+      field :product_id, type: String
       field :product_data, type: Hash
       field :parent_product, type: Boolean, default: false
       field :has_children, type: Boolean, default: false
@@ -12,6 +13,7 @@ module Workarea
       index({ created_at: 1 }, { expire_after_seconds: 6.months.seconds.to_i })
       index({ parent_product_id: 1 })
       index({ parent_product: 1 })
+      index({ product_id: 1 })
 
       index(
         {
