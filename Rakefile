@@ -32,6 +32,8 @@ require 'workarea/orderbot/version'
 
 desc "Release version #{Workarea::Orderbot::VERSION} of the gem"
 task :release do
+  host = "https://#{ENV['BUNDLE_GEMS__WORKAREA__COM']}@gems.workarea.com"
+
   Rake::Task['workarea:changelog'].execute
   system 'git add CHANGELOG.md'
   system 'git commit -m "Update CHANGELOG"'
@@ -39,8 +41,9 @@ task :release do
   system "git tag -a v#{Workarea::Orderbot::VERSION} -m 'Tagging #{Workarea::Orderbot::VERSION}'"
   system 'git push origin HEAD --follow-tags'
 
-  system "gem build workarea-orderbot.gemspec"
+  system 'gem build workarea-orderbot.gemspec'
   system "gem push workarea-orderbot-#{Workarea::Orderbot::VERSION}.gem"
+  system "gem push workarea-orderbot-#{Workarea::Orderbot::VERSION}.gem --host #{host}"
   system "rm workarea-orderbot-#{Workarea::Orderbot::VERSION}.gem"
 end
 
