@@ -51,6 +51,13 @@ The product import task will attempt to save the product details from Orderbot b
 
 The Orderbot fields "Group" and "Category" will be imported as product filters which can be used for category creation in the Workarea admin.
 
+Order Export Notes
+--------------------------------------------------------------------------------
+
+Orders are put into a Sidekiq queue on order place. Orders that have been successfully sent to Orderbot will have the Orderbot order ID saved to the model as well as when a timestamp for the when it was exported.
+
+A new Orderbot customer is created if the order's user does not have a customer ID associated to it already. The Orderbot customer ID will be attached to the user model if the order was a placed by a logged in user. Guest checkouts will be referenced by a users email in Orderbot.
+
 Configuration
 --------------------------------------------------------------------------------
 
