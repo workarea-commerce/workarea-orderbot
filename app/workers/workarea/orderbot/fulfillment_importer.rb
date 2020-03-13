@@ -11,7 +11,7 @@ module Workarea
           from_updated_on = options[:from_updated_on] || last_imported_at
 
           fulfillment_filters = {
-            shipped_on_min:  from_updated_on.iso8601
+            last_updated_date_min: from_updated_on.iso8601
           }
 
           fulfillment_response = gateway.get_fulfillments(fulfillment_filters)
