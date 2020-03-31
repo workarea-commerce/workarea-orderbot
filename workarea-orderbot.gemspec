@@ -16,5 +16,5 @@ Gem::Specification.new do |spec|
 
   spec.files = `git ls-files`.split("\n")
 
-  spec.add_dependency 'workarea', '~> 3.5.x'
+  spec.add_dependency 'workarea', '~> 3.4.x'
 end
