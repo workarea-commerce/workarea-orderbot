@@ -59,6 +59,4 @@ if Workarea::Configuration.respond_to?(:define_fields)
         description: 'Lead time used to generate the "ship date" field when an order is placed. This time will added to the current date and sent to Orderbot when an order is placed.'
     end
   end
-else
-  Workarea.config.orderbot = { api_user_name: 'string', api_password: 'string' }
 end
