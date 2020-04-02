@@ -59,4 +59,10 @@ if Workarea::Configuration.respond_to?(:define_fields)
         description: 'Lead time used to generate the "ship date" field when an order is placed. This time will added to the current date and sent to Orderbot when an order is placed.'
     end
   end
+else
+  Workarea.config.use_orderbot_staging_environment = false
+  Workarea.config.default_inventory_import_policy = 'standard'
+  Workarea.config.product_import_filters = {}
+  Workarea.config.orderbot_api_timezone = 'Eastern Time (US & Canada)'
+  Workarea.config.shipping_date_lead_time = 3.days
 end
