@@ -1,3 +1,17 @@
+Workarea Orderbot 1.0.1 (2020-04-06)
+--------------------------------------------------------------------------------
+
+*   Add compatibility with Workarea v3.4
+
+    * Checking if Workarea respond_to define_fields
+    * Define configuration defaults
+    * Allow v3.5 since this would be compatible
+
+    Co-authored-by: Ben Crouse <bencrouse@gmail.com>
+    Rocela Durazo
+
+
+
 Workarea Orderbot 1.0.0 (2020-03-13)
 --------------------------------------------------------------------------------
 
