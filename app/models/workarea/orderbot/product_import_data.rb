@@ -20,10 +20,10 @@ module Workarea
           parent_product: 1,
           has_children: 1
         },
-      {
-        name: 'child_prduct_import_index'
-      }
-    )
+        {
+          name: 'child_product_import_index'
+        }
+      )
 
       scope :parent_products, -> { where(parent_product: true) }
       scope :child_products, -> { any_of({ parent_product: false }, { parent_product: true, has_children: false }) }
